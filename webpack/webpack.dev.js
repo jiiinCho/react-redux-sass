@@ -16,4 +16,16 @@ module.exports = {
       "process.env.name": JSON.stringify("environmetal variable test"),
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader", //3. Inject styles in js into DOM
+          "css-loader", //2. turns css into commonjs (js)
+          "sass-loader", //1. turns sass into css
+        ],
+      },
+    ],
+  },
 };

@@ -1,10 +1,13 @@
 // import React from 'react';
+import Navbar from "./component/Navbar/Navbar";
+import Main from "./page/main/Main";
 
 const App = () => {
   return (
-    <h1>
-      Hello world - {process.env.NODE_ENV} {process.env.name}{" "}
-    </h1>
+    <>
+      <Navbar />
+      <Main />
+    </>
   );
 };
 

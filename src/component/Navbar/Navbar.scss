@@ -1,0 +1,12 @@
+@use "../../sass/abstracts" as *;
+
+.nav {
+  width: 100vw;
+  background-color: $green;
+  ul {
+    background-color: $primary;
+    li {
+      color: $green;
+    }
+  }
+}

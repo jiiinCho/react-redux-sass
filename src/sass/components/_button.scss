@@ -1,0 +1,25 @@
+@use "../abstracts" as *;
+
+%btn {
+  border-radius: 5px;
+  padding: 8px 20px;
+  margin: 3px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(0.98);
+  }
+}
+
+.btn-primary {
+  @extend %btn;
+  background-color: $primary;
+}
+
+.btn-primary:hover {
+  background-color: lighten($primary, 10%);
+}
+
+.btn-green {
+  @extend %btn;
+  background-color: $green;
+}
