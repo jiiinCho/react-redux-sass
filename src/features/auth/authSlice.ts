@@ -7,7 +7,7 @@ type AutheticatedUser = {
   username: string;
 };
 
-type AuthUser = {
+type UserState = {
   user: string | null;
   isError: boolean;
   isSuccess: boolean;
@@ -18,7 +18,7 @@ type AuthUser = {
 //Get user from localStorage
 const localStorageUser = localStorage.getItem("user");
 
-const initialState: AuthUser = {
+const initialState: UserState = {
   user: localStorageUser ? JSON.parse(localStorageUser) : null,
   isError: false,
   isSuccess: false,
@@ -82,39 +82,39 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(register.pending, (state: AuthUser) => {
+      .addCase(register.pending, (state: UserState) => {
         state.isLoading = true;
       })
-      .addCase(register.fulfilled, (state: AuthUser, action) => {
+      .addCase(register.fulfilled, (state: UserState, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload.username;
         //action.payload is data returned from axio call
       })
-      .addCase(register.rejected, (state: AuthUser, action) => {
+      .addCase(register.rejected, (state: UserState, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload ? action.payload : action.error.message;
         state.user = null;
         //action.payload is message argument from thunkAPI.rejectWithValue(message)
       })
-      .addCase(login.pending, (state: AuthUser) => {
+      .addCase(login.pending, (state: UserState) => {
         state.isLoading = true;
       })
-      .addCase(login.fulfilled, (state: AuthUser, action) => {
+      .addCase(login.fulfilled, (state: UserState, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload.username;
         //action.payload is data returned from axio call
       })
-      .addCase(login.rejected, (state: AuthUser, action) => {
+      .addCase(login.rejected, (state: UserState, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload ? action.payload : action.error.message;
         state.user = null;
         //action.payload is message argument from thunkAPI.rejectWithValue(message)
       })
-      .addCase(logout.fulfilled, (state: AuthUser) => {
+      .addCase(logout.fulfilled, (state: UserState) => {
         state.user = null;
       });
   },
