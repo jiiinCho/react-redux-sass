@@ -1,25 +1,42 @@
-@use "../abstracts" as *;
-
 %btn {
+  @extend %container-center;
   border-radius: 5px;
-  padding: 8px 20px;
-  margin: 3px;
+  padding: 0.5rem 1rem;
+  margin: 0.15rem;
   cursor: pointer;
+  transition: all 250ms ease-out;
+  font-family: $typo-body;
   &:hover {
     transform: scale(0.98);
   }
 }
+.btn-clickable {
+  border: none;
+  padding: 0;
+  font-family: $typo-body;
+  font-size: inherit;
+  cursor: pointer;
+  color: inherit;
+  background-color: transparent;
+}
 
 .btn-primary {
   @extend %btn;
+  border: 1px solid $primary;
   background-color: $primary;
+  color: $white;
 }
 
 .btn-primary:hover {
-  background-color: lighten($primary, 10%);
+  background-color: transparent;
+  color: $primary;
 }
 
-.btn-green {
+.btn-secondary {
   @extend %btn;
-  background-color: $green;
+  background-color: $secondary;
+}
+
+.btn-secondary:hover {
+  background-color: $secondaryFade;
 }

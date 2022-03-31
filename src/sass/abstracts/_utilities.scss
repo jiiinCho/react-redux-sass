@@ -1,9 +1,12 @@
 $spaceamounts: (1, 2, 3, 4, 5);
 @each $space in $spaceamounts {
   .m-#{$space} {
-    margin: #{$space}rem;
+    margin: #{calc(0.25 * $space)}rem;
   }
   .my-#{$space} {
-    margin: #{$space}rem 0;
+    margin: #{calc(0.25 * $space)}rem 0;
+  }
+  .ml-#{$space} {
+    margin-left: #{calc(0.25 * $space)}rem;
   }
 }

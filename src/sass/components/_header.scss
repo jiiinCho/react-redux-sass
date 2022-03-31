@@ -1,0 +1,93 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  color: $white;
+  flex-wrap: wrap;
+  background-color: rgba($primary, 0.25);
+  .header-expandable {
+    display: inline-block;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 200ms ease-in;
+    color: $white;
+    &:hover {
+      color: $black;
+    }
+  }
+
+  ul {
+    display: none;
+  }
+
+  ul.active {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 3rem 0;
+    text-align: center;
+    li {
+      margin-bottom: 0.75rem;
+      padding: 0.25rem;
+    }
+    li:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.header.active {
+  background-color: rgba($white, 0.95);
+  color: $primary;
+}
+
+.header-logo {
+  a {
+    font-family: $typo-branding;
+    font-size: $typo-branding-size;
+    transition: all 200ms ease-in;
+    &:hover {
+      color: $black;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .header {
+    padding: 1em 2em;
+    .header-expandable {
+      display: none;
+    }
+    ul {
+      display: flex;
+      button,
+      a {
+        display: inline-block;
+        position: relative;
+        color: $white;
+      }
+
+      button:after,
+      a:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 1px;
+        bottom: -3px;
+        left: 0;
+        background-color: $white;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+
+      button:hover:after,
+      a:hover:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
+}

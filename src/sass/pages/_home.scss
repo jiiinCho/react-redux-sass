@@ -1,0 +1,16 @@
+.home {
+  height: 100%;
+  width: 100%;
+  background-image: url("/src/assets/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.home-content-container {
+  border: 2px solid $white;
+  width: 60vw;
+  height: 60vh;
+  padding: 2em;
+  color: $white;
+}
