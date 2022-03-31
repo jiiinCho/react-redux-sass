@@ -24,6 +24,10 @@ module.exports = {
           "sass-loader", //1. turns sass into css
         ],
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
 };
