@@ -1,4 +1,4 @@
-$spaceamounts: (1, 2, 3, 4, 5);
+$spaceamounts: (1, 2, 3, 4, 5, 10);
 @each $space in $spaceamounts {
   .m-#{$space} {
     margin: #{calc(0.25 * $space)}rem;
@@ -8,5 +8,11 @@ $spaceamounts: (1, 2, 3, 4, 5);
   }
   .ml-#{$space} {
     margin-left: #{calc(0.25 * $space)}rem;
+  }
+  .mr-#{$space} {
+    margin-right: #{calc(0.25 * $space)}rem;
+  }
+  .lh-#{$space} {
+    line-height: #{calc(0.25 * $space) + 1}rem;
   }
 }

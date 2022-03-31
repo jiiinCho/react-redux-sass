@@ -3,8 +3,8 @@ import { FaBars } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../app/store";
-import { logout, reset } from "../../features/auth/authSlice";
+import { RootState } from "../app/store";
+import { logout, reset } from "../features/auth/authSlice";
 
 const Header = () => {
   const [expand, setExpand] = useState(false);
@@ -39,29 +39,29 @@ const Header = () => {
       </button>
       <ul className={`container ${expand && "active"}`}>
         <li>
-          <Link className="ml-5" to="/">
+          <Link className="ml-10" to="/">
             Home
           </Link>
         </li>
         <li>
-          <Link className="ml-5" to="/">
+          <Link className="ml-10" to="/products">
             Products
           </Link>
         </li>
         <li>
-          <Link className="ml-5" to="/">
+          <Link className="ml-10" to="/cart">
             Cart
           </Link>
         </li>
         {user ? (
           <li>
-            <button className="btn-primary ml-5" onClick={onLogout}>
+            <button className="btn-primary ml-10" onClick={onLogout}>
               Sign Out
             </button>
           </li>
         ) : (
           <li>
-            <button className="btn-clickable ml-5" onClick={onLogin}>
+            <button className="btn-clickable ml-10" onClick={onLogin}>
               Sign In
             </button>
           </li>
