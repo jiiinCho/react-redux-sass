@@ -1,3 +1,89 @@
+import HttpClient from "../network/http";
+import TokenStorage from "../db/token";
+import {
+  RequestUser,
+  User,
+  LoginUser,
+  LoginResponse,
+  ResponseUser,
+} from "../../interface";
+
+export default class AuthService {
+  constructor(private http: HttpClient, private tokenStorage: TokenStorage) {}
+
+  async signup(user: User): Promise<ResponseUser> {
+    const signupUser = makeRequestBody(user, user.username === "admin");
+    const data = await this.http.fetch("/users", {
+      method: "POST",
+      body: JSON.stringify(signupUser),
+    });
+    console.log("signup recieved", data);
+    data && this.tokenStorage.saveToken(data.id);
+    return data;
+  }
+
+  async signin(user: LoginUser): Promise<LoginResponse> {
+    const { username, password } = user;
+    const data = await this.http.fetch("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+    });
+    data && this.tokenStorage.saveToken(data.userId);
+    return data;
+  }
+
+  async getUser(id: string): Promise<ResponseUser> {
+    console.log("getUser called - userId from state", id);
+    const data = await this.http.fetch(`/users/${id}`, {
+      method: "GET",
+    });
+    console.log("getUser recieved data: ", data);
+    return data;
+  }
+
+  async update(user: User, id: string): Promise<ResponseUser> {
+    const signupUser = makeRequestBody(user, user.username === "admin");
+    console.log("id from state", id);
+    const data = await this.http.fetch(`/users/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(signupUser),
+    });
+    console.log("signup recieved", data);
+    return data;
+  }
+
+  async logout() {
+    this.tokenStorage.clearToken();
+  }
+}
+
+function makeRequestBody(user: User, isAdmin: boolean): RequestUser {
+  const {
+    email,
+    username,
+    password,
+    firstname,
+    lastname,
+    city,
+    street,
+    stnumber,
+    zipcode,
+    phone,
+  } = user;
+  const name = { firstname, lastname };
+  const address = { city, street, number: stnumber, zipcode };
+  return {
+    email,
+    username,
+    password,
+    role: isAdmin ? "admin" : "user",
+    name,
+    address,
+    phone,
+  };
+}
+
+/*
 import axios from "axios";
 import { User } from "../../interface";
 
@@ -33,3 +119,15 @@ const authService = {
 };
 
 export default authService;
+
+
+  async me() {
+    const token = this.tokenStorage.getToken();
+    return this.http.fetch("/auth/me", {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+
+*/

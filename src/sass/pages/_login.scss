@@ -1,0 +1,42 @@
+.login {
+  background-color: rgba($white, 0.85);
+  padding: 1em 1.5em;
+  border-radius: 5px;
+  width: 340px;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  margin: 5rem 0;
+  p {
+    font-weight: 500;
+  }
+  .login-input-container {
+    flex-direction: column;
+
+    div {
+      margin: 0.5rem 0;
+
+      .form-control.mini {
+        width: 80px;
+      }
+    }
+  }
+  button {
+    font-size: 1.15rem;
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .login {
+    width: 425px;
+    .login-input-container {
+      flex-direction: row;
+      div {
+        margin: 0;
+        margin-right: 1rem;
+      }
+      div:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

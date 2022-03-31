@@ -1,26 +1,28 @@
-import { useState } from "react";
-import { FaBars } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { FaBars, FaUser } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import { logout, reset } from "../features/auth/authSlice";
 
 const Header = () => {
   const [expand, setExpand] = useState(false);
+  const [mobile, setMobile] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { user } = useSelector((state: RootState) => state.auth);
 
-  const onLogout = () => {
-    dispatch(logout());
-    dispatch(reset());
-    navigate("/");
-  };
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  }, []);
 
   const onLogin = () => {
+    setExpand(false);
     navigate("/login");
   };
 
@@ -55,8 +57,11 @@ const Header = () => {
         </li>
         {user ? (
           <li>
-            <button className="btn-primary ml-10" onClick={onLogout}>
-              Sign Out
+            <button
+              className="btn-clickable ml-10"
+              onClick={() => navigate("/user")}
+            >
+              {mobile ? "Account" : <FaUser />}
             </button>
           </li>
         ) : (
@@ -74,7 +79,22 @@ const Header = () => {
 export default Header;
 
 /*
-import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
-import { useState } from 'react';
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { logout, reset } from "../features/auth/authSlice";
+
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
+            <li>
+              <button className="btn-clickable ml-10" onClick={onLogout}>
+                Sign Out
+              </button>
+            </li>
 */

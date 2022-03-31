@@ -53,11 +53,14 @@
 
 .btn-secondary {
   @extend %btn;
+  color: $white;
+  border: 1px solid $secondary;
   background-color: $secondary;
 }
 
 .btn-secondary:hover {
-  background-color: $secondaryFade;
+  background-color: transparent;
+  color: $secondary;
 }
 
 .btn-secondary-main {

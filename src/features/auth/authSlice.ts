@@ -1,11 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { User } from "../../interface";
-import authService from "./authService";
-
-type AutheticatedUser = {
-  id: string;
-  username: string;
-};
+import { User, LoginUser, ResponseUser, LoginResponse } from "../../interface";
+import AuthService from "./authService";
+import HttpClient from "../network/http";
+import { API_URL } from "../network/urls";
+import TokenStorage from "../db/token";
+import { RootState } from "../../app/store";
 
 type UserState = {
   user: string | null;
@@ -13,28 +12,33 @@ type UserState = {
   isSuccess: boolean;
   isLoading: boolean;
   message: string | undefined;
+  userInfo: undefined | ResponseUser;
 };
 
-//Get user from localStorage
-const localStorageUser = localStorage.getItem("user");
+const httpClient = new HttpClient(API_URL);
+const tokenStorage = new TokenStorage();
+const authService = new AuthService(httpClient, tokenStorage);
 
+//Get user from localStorage
+const localStorageUser = tokenStorage.getToken();
 const initialState: UserState = {
-  user: localStorageUser ? JSON.parse(localStorageUser) : null,
+  user: localStorageUser ? localStorageUser : null,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: undefined,
+  userInfo: undefined,
 };
 
 //Register user
 //< return type of the payload creator, first argument type to the payload creator, options fields for defininig thunkAPI field types>
 export const register = createAsyncThunk<
-  AutheticatedUser,
+  ResponseUser,
   User,
   { rejectValue: string }
 >("auth/register", async (user, thunkAPI) => {
   try {
-    return await authService.register(user); //return type User
+    return await authService.signup(user);
   } catch (error: any) {
     const message: string =
       (error.response && error.response.data && error.response.data.message) ||
@@ -45,12 +49,46 @@ export const register = createAsyncThunk<
 });
 
 export const login = createAsyncThunk<
-  AutheticatedUser,
-  User,
+  LoginResponse,
+  LoginUser,
   { rejectValue: string }
 >("auth/login", async (user, thunkAPI) => {
   try {
-    return await authService.login(user); //return type User
+    return await authService.signin(user);
+  } catch (error: any) {
+    const message: string =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const getUser = createAsyncThunk<
+  ResponseUser,
+  void,
+  { state: RootState; rejectValue: string }
+>("auth/getUser", async (_, thunkAPI) => {
+  try {
+    const userId = thunkAPI.getState().auth.user! as string; //because this page only shows when user logged in, type casting is possible
+    return await authService.getUser(userId); //return type User
+  } catch (error: any) {
+    const message: string =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const update = createAsyncThunk<
+  ResponseUser,
+  User,
+  { state: RootState; rejectValue: string }
+>("auth/update", async (user, thunkAPI) => {
+  try {
+    const userId = thunkAPI.getState().auth.user! as string; //because this page only shows when user logged in, type casting is possible
+    return await authService.update(user, userId); //return type User
   } catch (error: any) {
     const message: string =
       (error.response && error.response.data && error.response.data.message) ||
@@ -78,6 +116,7 @@ export const authSlice = createSlice({
       state.isSuccess = false;
       state.isLoading = false;
       state.message = "";
+      state.userInfo = undefined;
     },
   },
   extraReducers: (builder) => {
@@ -88,7 +127,7 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state: UserState, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload.username;
+        state.user = action.payload.id;
         //action.payload is data returned from axio call
       })
       .addCase(register.rejected, (state: UserState, action) => {
@@ -104,7 +143,7 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state: UserState, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload.username;
+        state.user = action.payload.id;
         //action.payload is data returned from axio call
       })
       .addCase(login.rejected, (state: UserState, action) => {
@@ -116,6 +155,40 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state: UserState) => {
         state.user = null;
+      })
+      .addCase(getUser.pending, (state: UserState) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state: UserState, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.userInfo = action.payload;
+        //action.payload is data returned from axio call
+      })
+      .addCase(getUser.rejected, (state: UserState, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload ? action.payload : action.error.message;
+        state.user = null;
+        state.userInfo = undefined;
+        //action.payload is message argument from thunkAPI.rejectWithValue(message)
+      })
+      .addCase(update.pending, (state: UserState) => {
+        state.isLoading = true;
+      })
+      .addCase(update.fulfilled, (state: UserState, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.userInfo = action.payload;
+        //action.payload is data returned from axio call
+      })
+      .addCase(update.rejected, (state: UserState, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload ? action.payload : action.error.message;
+        state.user = null;
+        state.userInfo = undefined;
+        //action.payload is message argument from thunkAPI.rejectWithValue(message)
       });
   },
 });

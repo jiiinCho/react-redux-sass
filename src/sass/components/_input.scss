@@ -1,0 +1,18 @@
+.form-control {
+  width: 100%;
+  padding: 0.75em 1em;
+  font-family: $typo-body;
+  font-size: 1rem;
+  background-color: transparent;
+  border: 1px solid $grey;
+  border-radius: 5px;
+  transition: all 250ms ease-in-out;
+  &:hover {
+    background-color: rgba($white, 0.9);
+    border: 1px solid $primary;
+  }
+  &:active,
+  &:focus {
+    outline: 1px solid $primary;
+  }
+}

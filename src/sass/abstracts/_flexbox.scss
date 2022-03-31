@@ -109,6 +109,16 @@
   @extend %display-flex;
 }
 
+.container-justify-end {
+  @extend %display-flex;
+  justify-content: flex-end;
+}
+
+.container-column {
+  @extend %display-flex;
+  @extend %flex-direction-column;
+}
+
 .container-center {
   @extend %container-center;
 }

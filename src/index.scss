@@ -37,3 +37,20 @@ a {
   width: 100%;
   height: 100%;
 }
+
+/*
+ scrollbar styling
+*/
+
+::-webkit-scrollbar {
+  width: 6px; /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $primary; /* color of the scroll thumb */
+  border-radius: 5; /* roundness of the scroll thumb */
+}

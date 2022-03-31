@@ -1,13 +1,4 @@
 .home {
-  height: 100%;
-  width: 100%;
-  background-image: url("/src/assets/background.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  section {
-    overflow-y: scroll;
-  }
   img {
     width: 320px;
     height: auto;
@@ -22,6 +13,16 @@
     display: flex;
     text-align: center;
   }
+
+  .home-button {
+    animation: crescendo 800ms alternate infinite ease-in;
+  }
+}
+
+.home-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (min-width: $tablet-min) {
@@ -34,5 +35,14 @@
       text-align: start;
       align-items: flex-start;
     }
+  }
+}
+
+@keyframes crescendo {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
   }
 }
