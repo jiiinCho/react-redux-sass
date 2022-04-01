@@ -5,16 +5,20 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
 import Account from "./pages/Account";
+import CartList from "./pages/CartList";
+import Header from "./component/Header";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/products" element={<Products />} />
           <Route path="/user" element={<Account />} />
+          <Route path="/cart" element={<CartList />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>

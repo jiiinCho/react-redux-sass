@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import { FaBars, FaUser } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
+import { getUserCart } from "../features/cart/cartSlice";
 
 const Header = () => {
   const [expand, setExpand] = useState(false);
   const [mobile, setMobile] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { user } = useSelector((state: RootState) => state.auth);
+  const { products } = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
     if (window.innerWidth <= 768) {
@@ -20,6 +23,10 @@ const Header = () => {
       setMobile(false);
     }
   }, []);
+
+  useEffect(() => {
+    user && dispatch(getUserCart(user));
+  }, [user]);
 
   const onLogin = () => {
     setExpand(false);
@@ -52,7 +59,7 @@ const Header = () => {
         </li>
         <li>
           <Link className="ml-10" to="/cart">
-            Cart
+            Cart[{products.length}]
           </Link>
         </li>
         {user ? (

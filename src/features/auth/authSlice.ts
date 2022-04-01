@@ -1,10 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { User, LoginUser, ResponseUser, LoginResponse } from "../../interface";
-import AuthService from "./authService";
-import HttpClient from "../network/http";
-import { API_URL } from "../network/urls";
-import TokenStorage from "../db/token";
 import { RootState } from "../../app/store";
+import { tokenStorage, authService } from "../features";
 
 type UserState = {
   user: string | null;
@@ -14,10 +11,6 @@ type UserState = {
   message: string | undefined;
   userInfo: undefined | ResponseUser;
 };
-
-const httpClient = new HttpClient(API_URL);
-const tokenStorage = new TokenStorage();
-const authService = new AuthService(httpClient, tokenStorage);
 
 //Get user from localStorage
 const localStorageUser = tokenStorage.getToken();

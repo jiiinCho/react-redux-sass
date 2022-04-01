@@ -48,3 +48,24 @@ export type RequestUser = {
   address: AddressT;
   phone: string;
 };
+
+/*
+Carts
+*/
+export type ProductT = {
+  productId: string;
+  quantity: number;
+};
+
+// export type RequestCart = {
+//   userId: string;
+//   date: string;
+//   products: ProductT[];
+// };
+
+export type CartT = {
+  id: string;
+  userId: string;
+  date: string;
+  products: ProductT[];
+};
