@@ -6,6 +6,7 @@ import { login, register, reset, setAdmin } from "../features/auth/authSlice";
 import { RootState } from "../app/store";
 import Spinner from "../component/Spinner";
 import { User } from "../interface";
+import { ADMIN_ID } from "../features/features";
 
 type FormT = User & {
   confirmPassword: string;
@@ -54,7 +55,9 @@ const Login = () => {
     if (isError) {
       toast.error(message);
     } else if (isSuccess || user) {
-      if (username === "admin") {
+      console.log("is user id 1216874387060039", user);
+      if (Number(user) === ADMIN_ID) {
+        console.log("user", user);
         dispatch(setAdmin());
         navigate("/admin");
       } else {

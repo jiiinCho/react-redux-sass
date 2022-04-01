@@ -14,3 +14,8 @@ export const tokenStorage = new TokenStorage();
 export const authService = new AuthService(httpClient, tokenStorage);
 export const cartService = new CartService(httpClient);
 export const productListService = new ProductListService(httpClient);
+
+/*
+ADMIN_ID can be security issue? 
+*/
+export const ADMIN_ID = 1216874387060039;

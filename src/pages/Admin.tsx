@@ -7,11 +7,14 @@ const Admin = () => {
   const [userList, setUserList] = useState(false);
 
   const toggleProductList = () => {
-    productList ? setProductList(false) : setProductList(true);
+    console.log("show productlist", productList);
+    setProductList(true);
+    setUserList(false);
   };
 
   const toggleUserList = () => {
-    userList ? setUserList(false) : setUserList(true);
+    setProductList(false);
+    setUserList(true);
   };
 
   return (

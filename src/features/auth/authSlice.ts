@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { User, LoginUser, ResponseUser, LoginResponse } from "../../interface";
 import { RootState } from "../../app/store";
-import { tokenStorage, authService } from "../features";
+import { tokenStorage, authService, ADMIN_ID } from "../features";
 
 type UserState = {
   user: string | null;
@@ -160,8 +160,8 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload.id;
+        state.isAdmin = Number(action.payload.id) === ADMIN_ID ? true : false;
         state.userInfo = action.payload;
-        //action.payload is data returned from axio call
       })
       .addCase(getUser.rejected, (state: UserState, action) => {
         state.isLoading = false;
