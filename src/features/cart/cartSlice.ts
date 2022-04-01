@@ -24,7 +24,7 @@ export const getUserCart = createAsyncThunk<
   CartT,
   string,
   { rejectValue: string }
->("cart/user", async (userId, thunkAPI) => {
+>("cart/getUserCart", async (userId, thunkAPI) => {
   try {
     return await cartService.getCartByUserId(userId);
   } catch (error: any) {
@@ -37,7 +37,7 @@ export const updateCart = createAsyncThunk<
   CartT,
   CartT,
   { rejectValue: string }
->("cart/update", async (cart, thunkAPI) => {
+>("cart/updateCart", async (cart, thunkAPI) => {
   try {
     return await cartService.update(cart);
   } catch (error: any) {
@@ -47,7 +47,7 @@ export const updateCart = createAsyncThunk<
 });
 
 export const addCart = createAsyncThunk<CartT, CartT, { rejectValue: string }>(
-  "cart/add",
+  "cart/addCart",
   async (cart, thunkAPI) => {
     try {
       return await cartService.add(cart);
@@ -62,7 +62,7 @@ export const removeCart = createAsyncThunk<
   CartT,
   string,
   { rejectValue: string }
->("cart/remove", async (productId, thunkAPI) => {
+>("cart/removeCart", async (productId, thunkAPI) => {
   try {
     return await cartService.remove(productId);
   } catch (error: any) {

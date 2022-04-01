@@ -59,7 +59,7 @@ const Header = () => {
         </li>
         <li>
           <Link className="ml-10" to="/cart">
-            Cart[{products.length}]
+            Cart[{products ? products.length : 0}]
           </Link>
         </li>
         {user ? (

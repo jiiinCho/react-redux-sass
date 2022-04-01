@@ -1,15 +1,28 @@
 import HttpClient from "../network/http";
-import { CartT } from "../../interface";
+import { CartT, ProductT } from "../../interface";
 
 export default class CartService {
   constructor(private http: HttpClient) {}
 
   async getCartByUserId(userId: string): Promise<CartT> {
-    const data = await this.http.fetch(`/carts/user/${userId}`, {
+    console.log("userId", userId);
+    const data: CartT[] = await this.http.fetch(`/carts/user/${userId}`, {
       method: "GET",
     });
     console.log("getCartByUserId recieved", data);
-    return data;
+    let products: ProductT[] = [];
+    let createdAt: number[] = [];
+    data.forEach((cart: CartT) => {
+      const convertedToInt = new Date(cart.date).getTime();
+      createdAt = [...createdAt, convertedToInt];
+      products = [...products, ...cart.products];
+    });
+    const max = Math.max(...createdAt);
+    const newestIndex = createdAt.indexOf(max);
+    const manipulatedCart = { ...data[newestIndex], products };
+    //this manipulatedCart ignores cart record history, make new cart of newest date and combined all products
+    console.log("manipulated Cart", manipulatedCart);
+    return manipulatedCart;
   }
 
   async add(cart: CartT): Promise<CartT> {

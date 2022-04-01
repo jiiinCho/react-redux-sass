@@ -1,0 +1,30 @@
+.product {
+  background-color: $white;
+  border: 1px solid $primary;
+  width: 100%;
+  padding: 1em;
+
+  .product-img {
+    width: 280px;
+    height: 320px;
+    object-fit: contain;
+  }
+  .product-meta {
+    width: 80%;
+  }
+  section {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .product {
+    width: 33.3%;
+  }
+}
+
+@media screen and (min-width: $desktop-min) {
+  .product {
+    width: 33.3%;
+  }
+}

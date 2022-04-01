@@ -69,3 +69,21 @@ export type CartT = {
   date: string;
   products: ProductT[];
 };
+
+/*
+ProductList
+*/
+export type RatingT = {
+  rate: number;
+  count: number;
+};
+
+export type ProductItemT = {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+  rating: RatingT;
+};

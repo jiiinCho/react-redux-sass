@@ -7,6 +7,7 @@ import Products from "./pages/Products";
 import Account from "./pages/Account";
 import CartList from "./pages/CartList";
 import Header from "./component/Header";
+import ProductDetail from "./component/ProductDetail";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/user" element={<Account />} />
           <Route path="/cart" element={<CartList />} />
           <Route path="*" element={<Home />} />

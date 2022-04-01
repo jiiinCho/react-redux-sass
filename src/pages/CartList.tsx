@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RootState } from "../app/store";
 import Cart from "../component/Cart";
@@ -9,7 +9,6 @@ import { updateCart, removeCart } from "../features/cart/cartSlice";
 import { CartT, ProductT } from "../interface";
 
 const CartList = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user } = useSelector((state: RootState) => state.auth);
@@ -48,9 +47,7 @@ const CartList = () => {
     return (
       <>
         <h1>You are not logged in</h1>
-        <button type="button" onClick={() => navigate("/login")}>
-          Go to Login
-        </button>
+        <Link to="/login">Go to Login</Link>
       </>
     );
   } else if (isLoading) {
@@ -60,6 +57,7 @@ const CartList = () => {
   } else {
     return (
       <main>
+        {console.log("userId", user)}
         <ul>
           {products.map((product) => (
             <Cart

@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { getUser, update, logout, reset } from "../features/auth/authSlice";
 import { RootState } from "../app/store";
 import Spinner from "../component/Spinner";
-import Header from "../component/Header";
 import { User } from "../interface";
 
 type FormT = User & {
@@ -104,9 +103,7 @@ const Account = () => {
     return <Spinner />;
   } else {
     return (
-      <main className="background container-center-column">
-        {console.log("formData in retrun", formData)}
-        <Header />
+      <main className="login-container container-center">
         <form className="login container-column" onSubmit={onSubmit}>
           <label className="container-column my-2">
             <p className="my-2">Username : </p>

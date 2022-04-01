@@ -105,6 +105,13 @@
   @extend %align-items-center;
 }
 
+%container-center-column-space-between {
+  @extend %display-flex;
+  @extend %flex-direction-column;
+  @extend %justify-content-space-between;
+  @extend %align-items-center;
+}
+
 .container {
   @extend %display-flex;
 }
@@ -117,6 +124,10 @@
 .container-column {
   @extend %display-flex;
   @extend %flex-direction-column;
+}
+
+.container-center-column-space-between {
+  @extend %container-center-column-space-between;
 }
 
 .container-center {
