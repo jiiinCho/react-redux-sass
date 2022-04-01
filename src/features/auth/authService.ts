@@ -17,7 +17,6 @@ export default class AuthService {
       method: "POST",
       body: JSON.stringify(signupUser),
     });
-    console.log("signup recieved", data);
     data && this.tokenStorage.saveToken(data.id);
     return data;
   }
@@ -33,22 +32,20 @@ export default class AuthService {
   }
 
   async getUser(id: string): Promise<ResponseUser> {
-    console.log("getUser called - userId from state", id);
+    // const userId = this.tokenStorage.getToken();
+    // console.log("getUser called - userId from tokenstorage", id);
     const data = await this.http.fetch(`/users/${id}`, {
       method: "GET",
     });
-    console.log("getUser recieved data: ", data);
     return data;
   }
 
   async update(user: User, id: string): Promise<ResponseUser> {
     const signupUser = makeRequestBody(user, user.username === "admin");
-    console.log("id from state", id);
     const data = await this.http.fetch(`/users/${id}`, {
       method: "PUT",
       body: JSON.stringify(signupUser),
     });
-    console.log("signup recieved", data);
     return data;
   }
 

@@ -1,0 +1,45 @@
+.cart-list-container {
+  overflow-y: scroll;
+  background-color: rgba($white, 0.8);
+  flex-direction: column;
+  padding: 2em;
+  justify-content: center;
+}
+.cart-list {
+  margin: 0;
+}
+
+.kvitto-container {
+  min-width: 360px;
+  display: none;
+
+  button {
+    font-size: 1.15rem;
+  }
+}
+
+.kvitto-container.mobile {
+  display: flex;
+}
+
+.cart-list-btn-container {
+  width: 100%;
+  text-align: center;
+}
+
+@media screen and (min-width: $tablet-min) {
+  .cart-list-container {
+    flex-direction: row;
+  }
+  .cart-list {
+    margin-right: 2rem;
+  }
+
+  .kvitto-container {
+    display: flex;
+  }
+
+  .kvitto-container.mobile {
+    display: none;
+  }
+}

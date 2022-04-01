@@ -136,8 +136,9 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state: UserState, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload.id;
-        //action.payload is data returned from axio call
+        console.log("payload in authSlice -login fullfilled ", action.payload);
+        console.log("login fullfieed, user ", state.user);
+        state.user = action.payload.userId;
       })
       .addCase(login.rejected, (state: UserState, action) => {
         state.isLoading = false;
@@ -155,6 +156,7 @@ export const authSlice = createSlice({
       .addCase(getUser.fulfilled, (state: UserState, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.user = action.payload.id;
         state.userInfo = action.payload;
         //action.payload is data returned from axio call
       })

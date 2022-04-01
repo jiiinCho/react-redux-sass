@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { login, register, reset } from "../features/auth/authSlice";
 import { RootState } from "../app/store";
 import Spinner from "../component/Spinner";
-import Header from "../component/Header";
 import { User } from "../interface";
 
 type FormT = User & {
@@ -62,7 +61,6 @@ const Login = () => {
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.name);
     setFormData((prevState) => ({
       ...prevState,
       [event.target.name]: event.target.value,
@@ -75,7 +73,6 @@ const Login = () => {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (signup && password !== confirmPassword) {
-      console.log("resut", signup || password !== confirmPassword);
       toast.error("Please make sure your passwords match");
       return;
     }
@@ -100,8 +97,7 @@ const Login = () => {
     return <Spinner />;
   } else {
     return (
-      <main className="background container-center-column">
-        <Header />
+      <main className="container-center-column">
         <form className="login container-column" onSubmit={onSubmit}>
           <label className="container-column my-2">
             <p className="my-2">Username : </p>

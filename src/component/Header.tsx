@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
 import { getUserCart } from "../features/cart/cartSlice";
+import { getUser } from "../features/auth/authSlice";
+// import { tokenStorage } from "../features/features";
 
 const Header = () => {
   const [expand, setExpand] = useState(false);
@@ -16,6 +18,7 @@ const Header = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { products } = useSelector((state: RootState) => state.cart);
 
+  // const user = tokenStorage.getToken();
   useEffect(() => {
     if (window.innerWidth <= 768) {
       setMobile(true);
@@ -25,8 +28,9 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(getUser());
     user && dispatch(getUserCart(user));
-  }, [user]);
+  }, [user, dispatch]);
 
   const onLogin = () => {
     setExpand(false);
@@ -59,7 +63,7 @@ const Header = () => {
         </li>
         <li>
           <Link className="ml-10" to="/cart">
-            Cart[{products ? products.length : 0}]
+            Cart [{products ? products.length : 0}]
           </Link>
         </li>
         {user ? (
@@ -90,6 +94,7 @@ export default Header;
 import { useSelector, useDispatch } from "react-redux";
 
 import { logout, reset } from "../features/auth/authSlice";
+import { tokenStorage } from '../features/features';
 
   const dispatch = useDispatch();
 

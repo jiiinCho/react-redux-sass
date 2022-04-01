@@ -17,7 +17,7 @@ export type LoginUser = {
 };
 
 export type LoginResponse = {
-  id: string;
+  userId: string;
   token: string;
 };
 

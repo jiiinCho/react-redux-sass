@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 import { CartT, ProductT } from "../../interface";
 import { cartService } from "../features";
 
@@ -35,11 +36,22 @@ export const getUserCart = createAsyncThunk<
 
 export const updateCart = createAsyncThunk<
   CartT,
-  CartT,
-  { rejectValue: string }
->("cart/updateCart", async (cart, thunkAPI) => {
+  ProductT,
+  { state: RootState; rejectValue: string }
+>("cart/updateCart", async (product, thunkAPI) => {
   try {
-    return await cartService.update(cart);
+    const cart = thunkAPI.getState().cart.cart;
+    const currProducts = thunkAPI.getState().cart.products;
+
+    const updatedProducts: ProductT[] = currProducts.map((item) =>
+      item.productId === product.productId ? product : item
+    );
+    if (cart) {
+      const requestCart: CartT = { ...cart, products: updatedProducts };
+      return await cartService.update(requestCart);
+    } else {
+      throw new Error("cart is empty!");
+    }
   } catch (error: any) {
     const message: string = getErrorMessage(error);
     return thunkAPI.rejectWithValue(message);
@@ -76,6 +88,12 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     reset: (state: CartState) => ({ ...state, initialState }),
+    removeUICart: (state: CartState, action) => {
+      console.log("removeUicART action.payload", action.payload);
+      state.products = state.products.filter(
+        (product: ProductT) => product.productId !== action.payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -95,7 +113,6 @@ export const cartSlice = createSlice({
         state.message = action.payload ? action.payload : action.error.message;
         state.cart = undefined;
         state.products = [];
-        //action.payload is message argument from thunkAPI.rejectWithValue(message)
       })
       .addCase(updateCart.pending, (state: CartState) => {
         state.isLoading = true;
@@ -104,8 +121,11 @@ export const cartSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.cart = action.payload;
-        state.products = state.cart.products;
-        //action.payload is data returned from axio call
+        state.products = action.payload.products;
+        // const updated = action.payload.products;
+        // state.products = state.products.map((product: ProductT) =>
+        //   product.productId == updated.productId ? updated : product
+        // );
       })
       .addCase(updateCart.rejected, (state: CartState, action) => {
         state.isLoading = false;
@@ -121,7 +141,8 @@ export const cartSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.cart = action.payload;
-        state.products = state.cart.products;
+        const receivedProduct = action.payload.products[0];
+        state.products = [...state.products, receivedProduct];
       })
       .addCase(addCart.rejected, (state: CartState, action) => {
         state.isLoading = false;
@@ -129,7 +150,6 @@ export const cartSlice = createSlice({
         state.message = action.payload ? action.payload : action.error.message;
         state.cart = undefined;
         state.products = [];
-        //action.payload is message argument from thunkAPI.rejectWithValue(message)
       })
       .addCase(removeCart.pending, (state: CartState) => {
         state.isLoading = true;
@@ -138,7 +158,7 @@ export const cartSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.cart = action.payload;
-        state.products = state.cart.products;
+        state.products = [];
       })
       .addCase(removeCart.rejected, (state: CartState, action) => {
         state.isLoading = false;
@@ -146,12 +166,11 @@ export const cartSlice = createSlice({
         state.message = action.payload ? action.payload : action.error.message;
         state.cart = undefined;
         state.products = [];
-        //action.payload is message argument from thunkAPI.rejectWithValue(message)
       });
   },
 });
 
-export const { reset } = cartSlice.actions;
+export const { reset, removeUICart } = cartSlice.actions;
 export default cartSlice.reducer;
 
 function getErrorMessage(error: any) {

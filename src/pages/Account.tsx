@@ -263,10 +263,16 @@ const Account = () => {
             </label>
           </>
           <div className="container-justify-end ">
-            <button className="btn-secondary ml-10" onClick={onLogout}>
+            <button
+              type="button"
+              className="btn-secondary ml-10"
+              onClick={onLogout}
+            >
               Sign Out
             </button>
-            <button className="btn-primary">Save</button>
+            <button type="submit" className="btn-primary">
+              Save
+            </button>
           </div>
         </form>
       </main>

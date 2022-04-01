@@ -121,6 +121,11 @@
   justify-content: flex-end;
 }
 
+.container-space-between {
+  @extend %display-flex;
+  @extend %justify-content-space-between;
+}
+
 .container-column {
   @extend %display-flex;
   @extend %flex-direction-column;

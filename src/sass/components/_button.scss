@@ -1,5 +1,6 @@
 %btn {
   @extend %container-center;
+  max-width: 360px;
   border-radius: 5px;
   padding: 0.5rem 1rem;
   margin: 0.15rem;
@@ -44,11 +45,11 @@
   border: 1px solid $primary;
   background-color: $primary;
   color: $white;
-}
 
-.btn-primary:hover {
-  background-color: transparent;
-  color: $primary;
+  &:hover {
+    background-color: transparent;
+    color: $primary;
+  }
 }
 
 .btn-secondary {
@@ -56,11 +57,11 @@
   color: $white;
   border: 1px solid $secondary;
   background-color: $secondary;
-}
 
-.btn-secondary:hover {
-  background-color: transparent;
-  color: $secondary;
+  &:hover {
+    background-color: transparent;
+    color: $secondary;
+  }
 }
 
 .btn-secondary-main {
@@ -69,4 +70,19 @@
 
 .btn-secondary-main:hover {
   background-color: $secondaryFade;
+}
+
+.btn-value {
+  @extend %btn;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.25rem;
+  border: 1px solid $primary;
+  background-color: $primary;
+  color: $white;
+
+  &:hover {
+    background-color: transparent;
+    color: $primary;
+  }
 }

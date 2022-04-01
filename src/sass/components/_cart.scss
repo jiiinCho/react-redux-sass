@@ -1,0 +1,35 @@
+.cart-item {
+  background-color: $white;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 5px;
+  flex-direction: column;
+}
+
+.cart-img {
+  width: 250;
+  height: 250px;
+  padding: 1em;
+  object-fit: contain;
+}
+
+.cart-meta {
+  width: 260px;
+}
+
+.cart-buttons {
+  width: 100%;
+}
+.cart-quantity {
+  width: 25px;
+  text-align: center;
+}
+
+@media screen and (min-width: $tablet-min) {
+  .cart-item {
+    flex-direction: row;
+  }
+  .cart-img {
+    margin-right: 2rem;
+  }
+}

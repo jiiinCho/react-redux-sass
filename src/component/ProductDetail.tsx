@@ -3,12 +3,17 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
 import { getProductList } from "../features/products/productsSlice";
-import { ProductItemT } from "../interface";
+import { ProductItemT, CartT, ProductT } from "../interface";
+import { addCart } from "../features/cart/cartSlice";
+import { toast } from "react-toastify";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   const { productList } = useSelector((state: RootState) => state.productList);
+  const { user } = useSelector((state: RootState) => state.auth);
+
   const [product, setProduct] = useState<ProductItemT | undefined>(undefined);
 
   useEffect(() => {
@@ -19,8 +24,26 @@ const ProductDetail = () => {
     const found = productList.find((product) => product.id.toString() === id);
     setProduct(found);
   }, [productList, id]);
+
   const onAdd = () => {
-    console.log("onAdd click");
+    if (!user) {
+      toast.error("please sign in first!");
+    } else {
+      if (id && product) {
+        const requestProduct: ProductT = {
+          productId: product.id,
+          quantity: 1,
+        };
+        const requestCart: CartT = {
+          id,
+          userId: user,
+          date: new Date().toString(),
+          products: [requestProduct],
+        };
+        dispatch(addCart(requestCart));
+        // dispatch(addUICart(requestProduct));
+      }
+    }
   };
   if (product) {
     const { title, price, description, image } = product;
