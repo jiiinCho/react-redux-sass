@@ -126,6 +126,12 @@
   @extend %flex-direction-column;
 }
 
+.container-column-space-between {
+  @extend %display-flex;
+  @extend %flex-direction-column;
+  @extend %justify-content-space-between;
+}
+
 .container-center-column-space-between {
   @extend %container-center-column-space-between;
 }
