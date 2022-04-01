@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
 import { getUserCart } from "../features/cart/cartSlice";
 import { getUser } from "../features/auth/authSlice";
-// import { tokenStorage } from "../features/features";
 
 const Header = () => {
   const [expand, setExpand] = useState(false);
@@ -15,9 +14,10 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { user, isAdmin } = useSelector((state: RootState) => state.auth);
   const { products } = useSelector((state: RootState) => state.cart);
 
+  console.log("isAdmin in header", isAdmin);
   // const user = tokenStorage.getToken();
   useEffect(() => {
     if (window.innerWidth <= 768) {
@@ -40,38 +40,57 @@ const Header = () => {
   const onExpand = () => {
     expand ? setExpand(false) : setExpand(true);
   };
+
+  const goToAccount = () => {
+    setExpand(false);
+    navigate("/user");
+  };
   return (
     <header
       className={`container-center-space-between header ${expand && "active"}`}
     >
       <div className="header-logo">
-        <Link to="/">PLAYGROUND</Link>
+        <Link onClick={() => setExpand(false)} to="/">
+          PLAYGROUND
+        </Link>
       </div>
       <button className="header-expandable btn-clickable" onClick={onExpand}>
         {expand ? <GrClose /> : <FaBars />}
       </button>
       <ul className={`container ${expand && "active"}`}>
         <li>
-          <Link className="ml-10" to="/">
+          <Link onClick={() => setExpand(false)} className="ml-10" to="/">
             Home
           </Link>
         </li>
         <li>
-          <Link className="ml-10" to="/products">
+          <Link
+            onClick={() => setExpand(false)}
+            className="ml-10"
+            to="/products"
+          >
             Products
           </Link>
         </li>
         <li>
-          <Link className="ml-10" to="/cart">
+          <Link onClick={() => setExpand(false)} className="ml-10" to="/cart">
             Cart [{products ? products.length : 0}]
           </Link>
         </li>
+        {isAdmin && (
+          <li>
+            <Link
+              onClick={() => setExpand(false)}
+              className="ml-10"
+              to="/admin"
+            >
+              Admin
+            </Link>
+          </li>
+        )}
         {user ? (
           <li>
-            <button
-              className="btn-clickable ml-10"
-              onClick={() => navigate("/user")}
-            >
+            <button className="btn-clickable ml-10" onClick={goToAccount}>
               {mobile ? "Account" : <FaUser />}
             </button>
           </li>

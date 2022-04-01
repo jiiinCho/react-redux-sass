@@ -8,6 +8,7 @@ import Account from "./pages/Account";
 import CartList from "./pages/CartList";
 import Header from "./component/Header";
 import ProductDetail from "./component/ProductDetail";
+import Admin from "./pages/Admin";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/user" element={<Account />} />
           <Route path="/cart" element={<CartList />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>

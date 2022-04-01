@@ -1,0 +1,29 @@
+.product-editor {
+  background-color: $white;
+  border-radius: 5px;
+  justify-content: center;
+  padding: 2em;
+  flex-direction: column;
+
+  img {
+    width: 280px;
+    height: 300px;
+    object-fit: contain;
+    margin-bottom: 2rem;
+  }
+  textarea {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: $tablet-max) {
+  .product-editor {
+    width: 48%;
+    flex-direction: row;
+
+    img {
+      margin-right: 2rem;
+      margin-bottom: 0;
+    }
+  }
+}

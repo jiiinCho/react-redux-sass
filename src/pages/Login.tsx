@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login, register, reset } from "../features/auth/authSlice";
+import { login, register, reset, setAdmin } from "../features/auth/authSlice";
 import { RootState } from "../app/store";
 import Spinner from "../component/Spinner";
 import { User } from "../interface";
@@ -54,7 +54,12 @@ const Login = () => {
     if (isError) {
       toast.error(message);
     } else if (isSuccess || user) {
-      navigate("/");
+      if (username === "admin") {
+        dispatch(setAdmin());
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } else {
       dispatch(reset());
     }

@@ -1,0 +1,43 @@
+.admin {
+  width: 100%;
+  background-color: rgba($white, 0.7);
+  justify-content: center;
+  overflow-y: scroll;
+  padding: 1em;
+  article {
+    margin-bottom: 2rem;
+    button {
+      font-size: 1.15rem;
+    }
+  }
+  .product-insert-form {
+    flex-direction: column;
+
+    width: 100%;
+    background-color: $white;
+    margin-bottom: 2rem;
+    padding: 1em;
+    border-radius: 5px;
+
+    &-divider {
+      @extend .product-insert-form;
+      flex: 1;
+
+      textarea {
+        width: 100%;
+      }
+    }
+  }
+
+  .admin-products {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (min-width: $tablet-min) {
+  .admin {
+    .product-insert-form {
+      flex-direction: row;
+    }
+  }
+}

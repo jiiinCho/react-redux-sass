@@ -10,6 +10,7 @@ type UserState = {
   isLoading: boolean;
   message: string | undefined;
   userInfo: undefined | ResponseUser;
+  isAdmin: boolean;
 };
 
 //Get user from localStorage
@@ -21,6 +22,7 @@ const initialState: UserState = {
   isLoading: false,
   message: undefined,
   userInfo: undefined,
+  isAdmin: false,
 };
 
 //Register user
@@ -104,12 +106,16 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    reset: (state) => {
+    reset: (state: UserState) => {
       state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
       state.message = "";
       state.userInfo = undefined;
+      state.isAdmin = false;
+    },
+    setAdmin: (state: UserState) => {
+      state.isAdmin = true;
     },
   },
   extraReducers: (builder) => {
@@ -136,8 +142,6 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state: UserState, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        console.log("payload in authSlice -login fullfilled ", action.payload);
-        console.log("login fullfieed, user ", state.user);
         state.user = action.payload.userId;
       })
       .addCase(login.rejected, (state: UserState, action) => {
@@ -145,7 +149,6 @@ export const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload ? action.payload : action.error.message;
         state.user = null;
-        //action.payload is message argument from thunkAPI.rejectWithValue(message)
       })
       .addCase(logout.fulfilled, (state: UserState) => {
         state.user = null;
@@ -188,5 +191,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset, setAdmin } = authSlice.actions;
 export default authSlice.reducer;

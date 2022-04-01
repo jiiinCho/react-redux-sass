@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 const Products = () => {
   const dispatch = useDispatch();
+
   const { productList, isLoading, isError, message } = useSelector(
     (state: RootState) => state.productList
   );
