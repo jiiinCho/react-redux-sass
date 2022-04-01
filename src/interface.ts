@@ -78,12 +78,15 @@ export type RatingT = {
   count: number;
 };
 
-export type ProductItemT = {
-  id: string;
+export type ProductInsertT = {
   title: string;
   price: number;
   description: string;
   category: string;
   image: string;
-  rating: RatingT;
+};
+
+export type ProductItemT = ProductInsertT & {
+  id: string;
+  rating?: RatingT;
 };

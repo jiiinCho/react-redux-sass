@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { RootState } from "../app/store";
@@ -26,8 +27,16 @@ const Cart = ({ item }: CartProps) => {
     console.log("updated in Cart", updated);
     dispatch(updateCart(updated));
   };
-  const { productList } = useSelector((state: RootState) => state.productList);
+  const { productList, isError, message } = useSelector(
+    (state: RootState) => state.productList
+  );
   const found = productList.find((product) => product.id === item.productId);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+  }, [isError, message]);
 
   if (!found) {
     return <h1>Product Not Found!</h1>;

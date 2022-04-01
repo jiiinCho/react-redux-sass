@@ -88,12 +88,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     reset: (state: CartState) => ({ ...state, initialState }),
-    removeUICart: (state: CartState, action) => {
-      console.log("removeUicART action.payload", action.payload);
-      state.products = state.products.filter(
-        (product: ProductT) => product.productId !== action.payload
-      );
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -122,10 +116,6 @@ export const cartSlice = createSlice({
         state.isSuccess = true;
         state.cart = action.payload;
         state.products = action.payload.products;
-        // const updated = action.payload.products;
-        // state.products = state.products.map((product: ProductT) =>
-        //   product.productId == updated.productId ? updated : product
-        // );
       })
       .addCase(updateCart.rejected, (state: CartState, action) => {
         state.isLoading = false;
@@ -170,7 +160,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { reset, removeUICart } = cartSlice.actions;
+export const { reset } = cartSlice.actions;
 export default cartSlice.reducer;
 
 function getErrorMessage(error: any) {
