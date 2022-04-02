@@ -8,18 +8,7 @@ export default class CartService {
     const data: CartT[] = await this.http.fetch(`/carts/user/${userId}`, {
       method: "GET",
     });
-    let products: ProductT[] = [];
-    let createdAt: number[] = [];
-    data.forEach((cart: CartT) => {
-      const convertedToInt = new Date(cart.date).getTime();
-      createdAt = [...createdAt, convertedToInt];
-      products = [...products, ...cart.products];
-    });
-    const max = Math.max(...createdAt);
-    const newestIndex = createdAt.indexOf(max);
-    const manipulatedCart = { ...data[newestIndex], products };
-    //this manipulatedCart ignores cart record history, make new cart of newest date and combined all products
-    return manipulatedCart;
+    return mergeCart(data);
   }
 
   async add(cart: CartT): Promise<CartT> {
@@ -45,4 +34,31 @@ export default class CartService {
     });
     return data;
   }
+}
+
+type ProductTempT = {
+  [key in string]: ProductT;
+};
+function mergeCart(data: CartT[]): CartT {
+  let products: ProductT[] = [];
+  let createdAt: number[] = [];
+
+  data.forEach((cart: CartT) => {
+    const convertedToInt = new Date(cart.date).getTime();
+    createdAt = [...createdAt, convertedToInt];
+    products = [...products, ...cart.products];
+  });
+  const mergedProduct = Object.values(
+    products.reduce((prev, { productId, quantity }) => {
+      prev[productId] = prev[productId] || { productId, quantity: 0 };
+      prev[productId].quantity = prev[productId].quantity + quantity;
+      return prev;
+    }, {} as ProductTempT)
+  );
+  const max = Math.max(...createdAt);
+  const newestIndex = createdAt.indexOf(max);
+  // manipulatedCart ignores cart record history, make new cart of newest date and combined all products
+  const manipulatedCart = { ...data[newestIndex], products: mergedProduct };
+  console.log("manipulatedcart", manipulatedCart);
+  return manipulatedCart;
 }

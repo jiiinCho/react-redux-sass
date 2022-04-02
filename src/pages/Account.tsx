@@ -6,6 +6,7 @@ import { getUser, update, logout, reset } from "../features/auth/authSlice";
 import { RootState } from "../app/store";
 import Spinner from "../component/Spinner";
 import { User } from "../interface";
+import { resetCart } from "../features/cart/cartSlice";
 
 type FormT = User & {
   confirmPassword: string;
@@ -70,6 +71,7 @@ const Account = () => {
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
+    dispatch(resetCart());
     navigate("/");
   };
 

@@ -11,6 +11,7 @@ type UserState = {
   message: string | undefined;
   userInfo: undefined | ResponseUser;
   isAdmin: boolean;
+  userList: ResponseUser[];
 };
 
 //Get user from localStorage
@@ -23,6 +24,7 @@ const initialState: UserState = {
   message: undefined,
   userInfo: undefined,
   isAdmin: false,
+  userList: [],
 };
 
 //Register user
@@ -50,6 +52,22 @@ export const login = createAsyncThunk<
 >("auth/login", async (user, thunkAPI) => {
   try {
     return await authService.signin(user);
+  } catch (error: any) {
+    const message: string =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const getAllUser = createAsyncThunk<
+  ResponseUser[],
+  void,
+  { state: RootState; rejectValue: string }
+>("auth/getAllUser", async (_, thunkAPI) => {
+  try {
+    return await authService.getAllUser(); //return type User
   } catch (error: any) {
     const message: string =
       (error.response && error.response.data && error.response.data.message) ||
@@ -97,11 +115,6 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
 });
 
-/* 
-    need to register all functions to createSlice as reducer 
-    to update state
-*/
-
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -113,6 +126,7 @@ export const authSlice = createSlice({
       state.message = "";
       state.userInfo = undefined;
       state.isAdmin = false;
+      state.userList = [];
     },
     setAdmin: (state: UserState) => {
       state.isAdmin = true;
@@ -170,6 +184,20 @@ export const authSlice = createSlice({
         state.user = null;
         state.userInfo = undefined;
         //action.payload is message argument from thunkAPI.rejectWithValue(message)
+      })
+      .addCase(getAllUser.pending, (state: UserState) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllUser.fulfilled, (state: UserState, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.userList = action.payload;
+      })
+      .addCase(getAllUser.rejected, (state: UserState, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload ? action.payload : action.error.message;
+        state.userList = [];
       })
       .addCase(update.pending, (state: UserState) => {
         state.isLoading = true;

@@ -31,6 +31,13 @@ export default class AuthService {
     return data;
   }
 
+  async getAllUser(): Promise<ResponseUser[]> {
+    const data = await this.http.fetch(`/users`, {
+      method: "GET",
+    });
+    return data;
+  }
+
   async getUser(id: string): Promise<ResponseUser> {
     // const userId = this.tokenStorage.getToken();
     // console.log("getUser called - userId from tokenstorage", id);
@@ -39,7 +46,6 @@ export default class AuthService {
     });
     return data;
   }
-
   async update(user: User, id: string): Promise<ResponseUser> {
     const signupUser = makeRequestBody(user, user.username === "admin");
     const data = await this.http.fetch(`/users/${id}`, {

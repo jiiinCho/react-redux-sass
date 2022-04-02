@@ -1,33 +1,30 @@
 %btn {
   @extend %container-center;
-  max-width: 360px;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
   margin: 0.15rem;
   cursor: pointer;
+  background-color: transparent;
   transition: all 250ms ease-out;
   font-family: $typo-body;
   &:hover {
-    transform: scale(0.98);
+    transform: scale(1.025);
   }
 }
 
+%btn-default {
+  @extend %btn;
+  max-width: 360px;
+  padding: 0.5rem 1rem;
+}
+
 %btn-main {
-  @extend %container-center;
-  border-radius: 5px;
+  @extend %btn;
   padding: 1rem 1.5rem;
-  margin: 0.15rem;
-  cursor: pointer;
-  transition: all 250ms ease-out;
-  font-family: $typo-body;
   font-size: 1.25rem;
   font-weight: 700;
   color: $white;
   border: 1px solid $secondary;
   background-color: $secondary;
-  &:hover {
-    transform: scale(1.025);
-  }
 }
 
 .btn-clickable {
@@ -40,11 +37,25 @@
   background-color: transparent;
 }
 
-.btn-primary {
+.btn-filter {
   @extend %btn;
+  border-radius: 0;
+  color: $black;
+  border: none;
+  font-size: 1rem;
+  border-bottom: 1px solid transparent;
+
+  &:hover {
+    color: $primary;
+    border-bottom: 1px solid $primary;
+  }
+}
+
+.btn-primary {
+  @extend %btn-default;
+  color: $white;
   border: 1px solid $primary;
   background-color: $primary;
-  color: $white;
 
   &:hover {
     background-color: transparent;
@@ -53,7 +64,7 @@
 }
 
 .btn-secondary {
-  @extend %btn;
+  @extend %btn-default;
   color: $white;
   border: 1px solid $secondary;
   background-color: $secondary;
@@ -66,14 +77,13 @@
 
 .btn-secondary-main {
   @extend %btn-main;
-}
-
-.btn-secondary-main:hover {
-  background-color: $secondaryFade;
+  &:hover {
+    background-color: $secondaryFade;
+  }
 }
 
 .btn-value {
-  @extend %btn;
+  @extend %btn-default;
   width: 1.5rem;
   height: 1.5rem;
   font-size: 1.25rem;

@@ -4,6 +4,7 @@ import { productListService } from "../features";
 
 type ProductListState = {
   productList: ProductItemT[];
+  productListOrigin: ProductItemT[];
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -12,6 +13,7 @@ type ProductListState = {
 
 const initialState: ProductListState = {
   productList: [],
+  productListOrigin: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -75,6 +77,18 @@ export const productListSlice = createSlice({
   initialState,
   reducers: {
     reset: (state: ProductListState) => ({ ...state, initialState }),
+    sortByCategory: (state: ProductListState, action) => {
+      let keyword = action.payload.toLowerCase(); //  keyword clothes, jewerly, electronics, all
+      if (keyword === "clothes") keyword = "clothing";
+
+      if (keyword === "all") {
+        state.productList = state.productListOrigin;
+      } else {
+        state.productList = state.productListOrigin.filter((product) => {
+          return product.category.search(keyword) > -1;
+        });
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -85,12 +99,14 @@ export const productListSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.productList = action.payload;
+        state.productListOrigin = action.payload;
       })
       .addCase(getProductList.rejected, (state: ProductListState, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload ? action.payload : action.error.message;
         state.productList = [];
+        state.productListOrigin = [];
       })
       .addCase(addProduct.pending, (state: ProductListState) => {
         state.isLoading = true;
@@ -143,7 +159,7 @@ export const productListSlice = createSlice({
   },
 });
 
-export const { reset } = productListSlice.actions;
+export const { reset, sortByCategory } = productListSlice.actions;
 export default productListSlice.reducer;
 
 function getErrorMessage(error: any) {

@@ -87,7 +87,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    reset: (state: CartState) => ({ ...state, initialState }),
+    resetCart: (state: CartState) => ({ ...state, initialState }),
   },
   extraReducers: (builder) => {
     builder
@@ -160,7 +160,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { reset } = cartSlice.actions;
+export const { resetCart } = cartSlice.actions;
 export default cartSlice.reducer;
 
 function getErrorMessage(error: any) {

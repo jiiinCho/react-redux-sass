@@ -9,6 +9,7 @@ import CartList from "./pages/CartList";
 import Header from "./component/Header";
 import ProductDetail from "./component/ProductDetail";
 import Admin from "./pages/Admin";
+import UserCart from "./component/UserCart";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/user" element={<Account />} />
           <Route path="/cart" element={<CartList />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/:userId" element={<UserCart />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>

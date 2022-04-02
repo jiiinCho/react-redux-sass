@@ -17,8 +17,6 @@ const Header = () => {
   const { user, isAdmin } = useSelector((state: RootState) => state.auth);
   const { products } = useSelector((state: RootState) => state.cart);
 
-  console.log("isAdmin in header", isAdmin);
-  // const user = tokenStorage.getToken();
   useEffect(() => {
     if (window.innerWidth <= 768) {
       setMobile(true);
@@ -72,11 +70,13 @@ const Header = () => {
             Products
           </Link>
         </li>
-        <li>
-          <Link onClick={() => setExpand(false)} className="ml-10" to="/cart">
-            Cart [{products ? products.length : 0}]
-          </Link>
-        </li>
+        {!isAdmin && (
+          <li>
+            <Link onClick={() => setExpand(false)} className="ml-10" to="/cart">
+              Cart [{products ? products.length : 0}]
+            </Link>
+          </li>
+        )}
         {isAdmin && (
           <li>
             <Link

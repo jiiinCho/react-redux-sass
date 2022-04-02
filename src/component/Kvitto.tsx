@@ -7,7 +7,7 @@ const Kvitto = ({ sum }: KvittoProps) => (
     <h3>Frakt</h3>
     <h3>0 kr</h3>
     <h3>Total</h3>
-    <h3>{sum}</h3>
+    <h3>{sum} kr</h3>
   </section>
 );
 

@@ -1,6 +1,6 @@
 const Spinner = () => (
-  <section className="loading-container">
-    <article className="loading">Spinner</article>
+  <section className="loader-container">
+    <article className="loader">Loading...</article>
   </section>
 );
 export default Spinner;

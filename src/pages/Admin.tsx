@@ -3,8 +3,8 @@ import AdminProducts from "../component/AdminProducts";
 import AdminUsers from "../component/AdminUsers";
 
 const Admin = () => {
-  const [productList, setProductList] = useState(true);
-  const [userList, setUserList] = useState(false);
+  const [productList, setProductList] = useState(false);
+  const [userList, setUserList] = useState(true);
 
   const toggleProductList = () => {
     console.log("show productlist", productList);

@@ -28,9 +28,17 @@
       }
     }
   }
-
+  .admin-users,
   .admin-products {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+
+    .admin-users-item {
+      flex-direction: column;
+
+      background-color: $white;
+      border-radius: 5px;
+      padding: 1rem 2rem;
+    }
   }
 }
 
@@ -39,5 +47,16 @@
     .product-insert-form {
       flex-direction: row;
     }
+
+    .admin-users {
+      .admin-users-item {
+        flex-direction: row;
+      }
+    }
+  }
+
+  .admin-products {
+    width: 100%;
+    flex-wrap: wrap;
   }
 }
