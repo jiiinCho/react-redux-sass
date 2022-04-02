@@ -76,7 +76,14 @@ export const productListSlice = createSlice({
   name: "productList",
   initialState,
   reducers: {
-    reset: (state: ProductListState) => ({ ...state, initialState }),
+    resetProductList: (state: ProductListState) => {
+      state.productList = [];
+      state.productListOrigin = [];
+      state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
+      state.message = "";
+    },
     sortByCategory: (state: ProductListState, action) => {
       let keyword = action.payload.toLowerCase(); //  keyword clothes, jewerly, electronics, all
       if (keyword === "clothes") keyword = "clothing";
@@ -159,7 +166,7 @@ export const productListSlice = createSlice({
   },
 });
 
-export const { reset, sortByCategory } = productListSlice.actions;
+export const { resetProductList, sortByCategory } = productListSlice.actions;
 export default productListSlice.reducer;
 
 function getErrorMessage(error: any) {

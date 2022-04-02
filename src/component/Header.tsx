@@ -17,6 +17,7 @@ const Header = () => {
   const { user, isAdmin } = useSelector((state: RootState) => state.auth);
   const { products } = useSelector((state: RootState) => state.cart);
 
+  console.log("products in header", products);
   useEffect(() => {
     if (window.innerWidth <= 768) {
       setMobile(true);

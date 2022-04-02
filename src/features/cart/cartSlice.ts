@@ -87,7 +87,15 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    resetCart: (state: CartState) => ({ ...state, initialState }),
+    resetCart: (state: CartState) => {
+      console.log("reset cart!!");
+      state.cart = undefined;
+      state.products = [];
+      state.isError = false;
+      state.isSuccess = false;
+      state.isLoading = false;
+      state.message = "";
+    },
   },
   extraReducers: (builder) => {
     builder
