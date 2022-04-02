@@ -17,7 +17,6 @@ const Header = () => {
   const { user, isAdmin } = useSelector((state: RootState) => state.auth);
   const { products } = useSelector((state: RootState) => state.cart);
 
-  console.log("products in header", products);
   useEffect(() => {
     if (window.innerWidth <= 768) {
       setMobile(true);
@@ -108,25 +107,3 @@ const Header = () => {
 };
 
 export default Header;
-
-/*
-
-import { useSelector, useDispatch } from "react-redux";
-
-import { logout, reset } from "../features/auth/authSlice";
-import { tokenStorage } from '../features/features';
-
-  const dispatch = useDispatch();
-
-  const onLogout = () => {
-    dispatch(logout());
-    dispatch(reset());
-    navigate("/");
-  };
-
-            <li>
-              <button className="btn-clickable ml-10" onClick={onLogout}>
-                Sign Out
-              </button>
-            </li>
-*/

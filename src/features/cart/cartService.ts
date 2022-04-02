@@ -59,6 +59,5 @@ function mergeCart(data: CartT[]): CartT {
   const newestIndex = createdAt.indexOf(max);
   // manipulatedCart ignores cart record history, make new cart of newest date and combined all products
   const manipulatedCart = { ...data[newestIndex], products: mergedProduct };
-  console.log("manipulatedcart", manipulatedCart);
   return manipulatedCart;
 }

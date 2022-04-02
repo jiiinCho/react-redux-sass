@@ -55,9 +55,7 @@ const Login = () => {
     if (isError) {
       toast.error(message);
     } else if (isSuccess || user) {
-      console.log("is user id 1216874387060039", user);
       if (Number(user) === ADMIN_ID) {
-        console.log("user", user);
         dispatch(setAdmin());
         navigate("/admin");
       } else {

@@ -61,7 +61,6 @@ const UserCartItem = ({ product }: UserCartItemProps) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("stop browser, productlist empt?", productList.length === 0);
     productList.length === 0 && dispatch(getProductList());
   }, [dispatch, productList]);
 
