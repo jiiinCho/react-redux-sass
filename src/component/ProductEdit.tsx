@@ -70,7 +70,7 @@ const ProductEdit = ({ product }: ProductEditProps) => {
     return <Spinner />;
   } else {
     return (
-      <li className="product-editor container m-2">
+      <li className="product-editor container">
         <img src={image} alt="product" />
         <form className="product-editor-form" onSubmit={onFormSubmit}>
           <label>

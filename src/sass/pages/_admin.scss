@@ -30,7 +30,7 @@
   }
   .admin-users,
   .admin-products {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 
     .admin-users-item {
       flex-direction: column;
