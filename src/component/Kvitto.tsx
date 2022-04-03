@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
 import { removeCart } from "../features/cart/cartSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 type KvittoProps = {
   sum: number;
@@ -13,7 +14,7 @@ const Kvitto = ({ sum }: KvittoProps) => {
   );
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const onRemoveCart = () => {
     cart
       ? dispatch(removeCart(cart.id))
@@ -21,6 +22,10 @@ const Kvitto = ({ sum }: KvittoProps) => {
     isError && toast.error(message);
   };
 
+  const onCheckout = () => {
+    cart && dispatch(removeCart(cart.id));
+    navigate("/checkout");
+  };
   return (
     <section className="kvitto container-column">
       <h3 className="my-4">Frakt</h3>
@@ -31,7 +36,7 @@ const Kvitto = ({ sum }: KvittoProps) => {
         <button type="button" className="btn-secondary" onClick={onRemoveCart}>
           Reset
         </button>
-        <button type="button" className="btn-primary">
+        <button type="button" className="btn-primary" onClick={onCheckout}>
           Checkout
         </button>
       </div>

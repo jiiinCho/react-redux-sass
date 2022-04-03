@@ -43,17 +43,19 @@ const CartList = () => {
   } else {
     return (
       <main className="cart-list-container">
-        <div className="kvitto-container mobile">
-          <Kvitto sum={sum} />
-        </div>
-        <ul className="cart-list">
-          {products.map((product) => (
-            <Cart key={product.productId} item={product} />
-          ))}
-        </ul>
-        <div className="kvitto-container">
-          <Kvitto sum={sum} />
-        </div>
+        <section className="cart-list-section">
+          <div className="kvitto-container mobile">
+            <Kvitto sum={sum} />
+          </div>
+          <ul className="cart-list">
+            {products.map((product) => (
+              <Cart key={product.productId} item={product} />
+            ))}
+          </ul>
+          <div className="kvitto-container">
+            <Kvitto sum={sum} />
+          </div>
+        </section>
       </main>
     );
   }
