@@ -1,16 +1,15 @@
 .cart-list-container {
+  width: 100vw;
   overflow-y: scroll;
   background-color: rgba($white, 0.7);
-  flex-direction: column;
   padding: 2em;
-  justify-content: center;
 }
 .cart-list {
   margin: 0;
 }
 
 .kvitto-container {
-  min-width: 360px;
+  max-width: 360px;
   display: none;
 
   button {
@@ -19,7 +18,7 @@
 }
 
 .kvitto-container.mobile {
-  display: flex;
+  display: inline;
 }
 
 .cart-list-btn-container {
@@ -29,14 +28,15 @@
 
 @media screen and (min-width: $tablet-min) {
   .cart-list-container {
-    flex-direction: row;
+    display: flex;
+    padding: 1em;
   }
   .cart-list {
     margin-right: 2rem;
   }
 
   .kvitto-container {
-    display: flex;
+    display: inline;
   }
 
   .kvitto-container.mobile {

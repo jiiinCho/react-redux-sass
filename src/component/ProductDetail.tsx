@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
 import { getProductList } from "../features/products/productsSlice";
@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 const ProductDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { productList } = useSelector((state: RootState) => state.productList);
   const { user } = useSelector((state: RootState) => state.auth);
 
@@ -42,6 +42,7 @@ const ProductDetail = () => {
         };
         dispatch(addCart(requestCart));
         // dispatch(addUICart(requestProduct));
+        navigate("/products");
       }
     }
   };
