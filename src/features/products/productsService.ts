@@ -30,7 +30,6 @@ export default class ProductListService {
         rating,
       }),
     });
-    console.log("update -data recieved", data);
     return data;
   }
 

@@ -88,7 +88,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     resetCart: (state: CartState) => {
-      console.log("reset cart!!");
       state.cart = undefined;
       state.products = [];
       state.isError = false;

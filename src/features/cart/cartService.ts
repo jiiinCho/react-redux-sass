@@ -24,7 +24,6 @@ export default class CartService {
       method: "PUT",
       body: JSON.stringify(cart),
     });
-    console.log("update -data recieved", data);
     return data;
   }
 

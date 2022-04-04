@@ -6,7 +6,6 @@ const Filter = () => {
   const onSort = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const buttonElem = e.target as HTMLButtonElement;
     const text = buttonElem.innerText;
-    console.log("text", text);
     dispatch(sortByCategory(text));
   };
 

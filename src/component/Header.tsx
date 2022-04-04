@@ -26,8 +26,10 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getUser());
-    user && dispatch(getUserCart(user));
+    if (user) {
+      dispatch(getUser());
+      dispatch(getUserCart(user));
+    }
   }, [user, dispatch]);
 
   const onLogin = () => {

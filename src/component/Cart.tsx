@@ -24,7 +24,6 @@ const Cart = ({ item }: CartProps) => {
 
   const onIncrease = () => {
     const updated = { ...item, quantity: quantity + 1 };
-    console.log("updated in Cart", updated);
     dispatch(updateCart(updated));
   };
   const { productList, isError, message } = useSelector(

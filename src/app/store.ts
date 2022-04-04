@@ -13,9 +13,5 @@ export const rootReducer = combineReducers({
 export type RootState = ReturnType<typeof rootReducer>;
 
 export const store = configureStore<RootState>({
-  reducer: {
-    auth: authReducer,
-    cart: cartReducer,
-    productList: productListReducer,
-  },
+  reducer: rootReducer,
 });
