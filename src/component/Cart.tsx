@@ -2,15 +2,16 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { RootState } from "../app/store";
-import { ProductT } from "../interface";
 import { updateCart } from "../features/cart/cartSlice";
 import { getProductList } from "../features/products/productsSlice";
 
 interface CartProps {
-  item: ProductT;
+  index: number;
 }
 
-const Cart = ({ item }: CartProps) => {
+const Cart = ({ index }: CartProps) => {
+  const { products } = useSelector((state: RootState) => state.cart);
+  const item = products[index];
   const quantity = item.quantity;
   const dispatch = useDispatch();
 

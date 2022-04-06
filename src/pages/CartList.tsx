@@ -48,8 +48,8 @@ const CartList = () => {
             <Kvitto sum={sum} />
           </div>
           <ul className="cart-list">
-            {products.map((product) => (
-              <Cart key={product.productId} item={product} />
+            {products.map((product, index) => (
+              <Cart key={product.productId} index={index} />
             ))}
           </ul>
           <div className="kvitto-container">
