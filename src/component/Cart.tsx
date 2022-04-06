@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { RootState } from "../app/store";
 import { ProductT } from "../interface";
 import { updateCart } from "../features/cart/cartSlice";
+import { getProductList } from "../features/products/productsSlice";
 
 interface CartProps {
   item: ProductT;
@@ -37,6 +38,11 @@ const Cart = ({ item }: CartProps) => {
     }
   }, [isError, message]);
 
+  useEffect(() => {
+    if (productList.length === 0) {
+      dispatch(getProductList());
+    }
+  });
   if (!found) {
     return <h1>Product Not Found!</h1>;
   } else {
