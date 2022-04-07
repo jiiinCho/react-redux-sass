@@ -18,4 +18,4 @@ export const productListService = new ProductListService(httpClient);
 /*
 ADMIN_ID can be security issue? 
 */
-export const ADMIN_ID = 100;
+// export const ADMIN_ID = 100;

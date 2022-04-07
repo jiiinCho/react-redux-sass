@@ -47,6 +47,7 @@ function mergeCart(data: CartT[]): CartT {
     createdAt = [...createdAt, convertedToInt];
     products = [...products, ...cart.products];
   });
+  // sum all product quantity : [ ]
   const mergedProduct = Object.values(
     products.reduce((prev, { productId, quantity }) => {
       prev[productId] = prev[productId] || { productId, quantity: 0 };
@@ -57,6 +58,6 @@ function mergeCart(data: CartT[]): CartT {
   const max = Math.max(...createdAt);
   const newestIndex = createdAt.indexOf(max);
   // manipulatedCart ignores cart record history, make new cart of newest date and combined all products
-  const manipulatedCart = { ...data[newestIndex], products: mergedProduct };
+  const manipulatedCart = { ...data[newestIndex], products: mergedProduct }; // createAt : lastest date 
   return manipulatedCart;
 }
