@@ -12,4 +12,4 @@ A simple eCommerce Platform built with React, Redux toolkit and styled with Sass
 
 ## View it live
 
-https://react-redux-sass-2022.netlify.app
+https://react-router-sass-custom.netlify.app
